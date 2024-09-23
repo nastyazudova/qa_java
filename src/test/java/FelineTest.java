@@ -1,34 +1,59 @@
 import com.example.Feline;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.runners.Parameterized;
 
-@RunWith(MockitoJUnitRunner.class)
+import java.util.List;
+import static org.junit.Assert.assertEquals;
+
+@RunWith(Parameterized.class)
 public class FelineTest {
-    @Mock
-    private Feline feline;
+    private int KittensData;
+    public FelineTest(int KittensData) {
+        this.KittensData = KittensData;
+    }
+
+    @Parameterized.Parameters
+    public static Object[][] KittensData() {
+        return new Object[][]{
+                {0},
+                {2},
+                {3},
+                {500}
+        };
+    }
 
     @Test
-    public void test1() throws Exception {
-
-        feline.eatMeat();
-        feline.getFamily();
-        feline.getKittens();
-        feline.getKittens(2);
-        Mockito.verify(feline).eatMeat();
-        Mockito.verify(feline).getFamily();
-        Mockito.verify(feline).getKittens();
-        Mockito.verify(feline).getKittens(2);
+    public void eatMeatListTest() throws Exception {
+        Feline feline = new Feline();
+        List actual = feline.eatMeat();
+        List expected = List.of("Животные", "Птицы", "Рыба");
+        assertEquals(expected, actual);
     }
+
     @Test
-    public void test2() throws Exception {
-        Feline feline1 = new Feline();
-        feline1.eatMeat();
-        feline1.getFamily();
-        feline1.getKittens();
-        feline1.getKittens(2);
-
+    public void getFamilyTest() {
+        Feline feline = new Feline();
+        String actual = feline.getFamily();
+        String expected = "Кошачьи";
+        assertEquals(expected, actual);
     }
+
+    @Test
+    public void getKittensWithoutIntTest() {
+        Feline feline = new Feline();
+        int actual = feline.getKittens();
+        int expected = 1;
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void getKittensWithIntTest() {
+        Feline feline = new Feline();
+        int actual = feline.getKittens(KittensData);
+        int expected = KittensData;
+        assertEquals(expected, actual);
+    }
+
+
 }

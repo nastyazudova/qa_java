@@ -6,16 +6,12 @@ import org.junit.runners.Parameterized;
 import static org.junit.Assert.*;
 
 @RunWith(Parameterized.class)
-public class LionParametrTest {
+public class LionPositiveParametrTest {
     private String LionDataPositive;
-    private String LionDataNegative;
 
-
-    public LionParametrTest(String LionDataPositive, String LionDataNegative) {
+    public LionPositiveParametrTest(String LionDataPositive) {
         this.LionDataPositive = LionDataPositive;
-        this.LionDataNegative = LionDataNegative;
     }
-
 
     @Parameterized.Parameters
     public static Object[][] LionDataPositive() {
@@ -24,32 +20,10 @@ public class LionParametrTest {
                 {"Самка"},
         };
     }
-    @Parameterized.Parameters
-    public static Object[][] LionDataNegative() {
-        return new Object[][]{
-                {"Самка1"},
-                {"null"}
-        };
-    }
 
-    @Test(expected = Exception.class)
-    public void doesHaveManeException() throws Exception {
-        Lion lion = new Lion(LionDataNegative);
-
-        boolean expected = false;
-        if (LionDataNegative.equals("Самец")) {
-            expected = true;
-        } else if (LionDataNegative.equals("Самка")) {
-            expected = false;}
-
-        boolean actual = lion.doesHaveMane();
-        assertEquals(expected,actual);
-
-
-    }
 
     @Test()
-    public void doesHaveMane() throws Exception {
+    public void doesHaveManePositiveTest() throws Exception {
         Lion lion = new Lion(LionDataPositive);
         boolean expected = false;
         if (LionDataPositive.equals("Самец")) {
