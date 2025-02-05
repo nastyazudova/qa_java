@@ -1,2 +1,2 @@
-# qa_java
+# mockito, jacoco trying
 QA Java Project
